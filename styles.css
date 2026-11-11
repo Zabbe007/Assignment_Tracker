@@ -1,0 +1,521 @@
+/* ============================================================
+   ASSIGNMENT TRACKER — styles.css
+   ============================================================
+ 
+   TABLE OF CONTENTS
+   1. Variables (colors, sizes)
+   2. Base / Reset
+   3. Header
+   4. Dashboard stats
+   5. Add Assignment form
+   6. Filter & sort controls
+   7. Assignment list & cards
+   8. Priority color coding
+   9. Status badges
+   10. Edit modal
+   11. Buttons
+   ============================================================ */
+ 
+ 
+/* === 1. VARIABLES === */
+:root {
+  --bg:          #f5f7fa;
+  --white:       #ffffff;
+  --border:      #d1d5db;
+  --text:        #1f2937;
+  --muted:       #6b7280;
+
+  --primary:     #365975;   /* main accent color */
+  --blue:        #3872f0;   /* buttons, links, active states */
+  --blue-dark:   #1d4ed8;   /* button hover */
+  --blue-light:  #dbeafe;   /* low-priority background */
+ 
+  --red:         #dc2626;   /* high priority, overdue */
+  --red-light:   #fee2e2;
+ 
+  --amber:       #d97706;   /* medium priority */
+  --amber-light: #fef3c7;
+ 
+  --green:       #16a34a;   /* completed */
+  --green-light: #dcfce7;
+ 
+  --grey-light:  #f3f4f6;   /* completed card background */
+ 
+  --radius:      6px;
+  --shadow:      0 1px 3px rgba(0, 0, 0, 0.1);
+}
+ 
+ 
+/* === 2. BASE / RESET ===*/
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+ 
+body {
+  background:  var(--bg);
+  color:       var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  font-size:   15px;
+  line-height: 1.6;
+  padding:     0 0 60px 0;
+}
+ 
+h1, h2, h3 {
+  line-height: 1.3;
+}
+ 
+ 
+/* === 3. HEADER ===*/
+header {
+  background:    var(--primary);
+  color:         var(--white);
+  padding:       24px 32px;
+  margin-bottom: 24px;
+  border-bottom: 2px solid var(--red);
+}
+ 
+header h1 {
+  font-size: 1.8rem;
+}
+
+.header-title {
+  font-family: 'Audiowide';
+  display: flex;
+  align-items: center; /* vertically centers everything */
+  gap: 0.2rem;
+  margin-top: 0; /* remove default h1 margin */
+}
+
+.header-title .icon {
+  font-size: 2.5rem;
+  text-decoration: none;
+  color: #bd8787;
+  line-height: 1;
+  position: relative;
+  top: -3px;
+  right: -12px;
+
+}
+.icon:hover {
+  color: #f87171;
+}
+ 
+header p {
+  opacity:   0.85;
+  font-size: 14px;
+  margin-top: 4px;
+}
+ 
+ 
+/* === 4. DASHBOARD STATS ===*/
+.dashboard {
+  display:       flex;
+  gap:           16px;
+  flex-wrap:     wrap;
+  padding:       0 32px;
+  margin-bottom: 28px;
+}
+ 
+.stat-box {
+  background:    var(--white);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow:    var(--shadow);
+  padding:       14px 24px;
+  text-align:    center;
+  min-width:     100px;
+  flex:          1;
+}
+ 
+/* The big number inside each stat box */
+.stat-number {
+  display:     block;
+  font-size:   2rem;
+  font-weight: bold;
+  color:       var(--blue);
+  line-height: 1;
+}
+ 
+/* Overdue number shows in red */
+.stat-number.red {
+  color: var(--red);
+}
+ 
+.stat-label {
+  display:   block;
+  font-size: 12px;
+  color:     var(--muted);
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+ 
+ 
+/* === 5. ADD ASSIGNMENT FORM === */
+.form-section {
+  background:    var(--white);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow:    var(--shadow);
+  padding:       24px 28px;
+  margin:        0 32px 28px;
+}
+ 
+.form-section h2 {
+  font-size:     1.1rem;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+ 
+/* Each label + input pair */
+.form-row {
+  margin-bottom: 14px;
+}
+ 
+.form-row label {
+  display:       block;
+  font-size:     13px;
+  font-weight:   bold;
+  margin-bottom: 5px;
+  color:         var(--text);
+}
+ 
+.form-row input,
+.form-row textarea,
+.form-row select {
+  width:         100%;
+  padding:       8px 10px;
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  font-family:   inherit;
+  font-size:     14px;
+  color:         var(--text);
+  background:    var(--white);
+  outline:       none;
+}
+ 
+/* Blue outline when a field is focused */
+.form-row input:focus,
+.form-row textarea:focus,
+.form-row select:focus {
+  border-color: var(--blue);
+}
+ 
+.form-row textarea {
+  resize:     vertical;
+  min-height: 72px;
+}
+ 
+ 
+/* === 6. FILTER & SORT CONTROLS === */
+.controls-section {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  flex-wrap:       wrap;
+  gap:             12px;
+  padding:         0 32px;
+  margin-bottom:   20px;
+}
+ 
+.filter-buttons {
+  display: flex;
+  gap:     8px;
+}
+ 
+/* Plain filter button */
+.filter-btn {
+  padding:       7px 16px;
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  background:    var(--white);
+  color:         var(--text);
+  font-family:   inherit;
+  font-size:     13px;
+  cursor:        pointer;
+}
+ 
+.filter-btn:hover {
+  background: var(--blue-light);
+}
+ 
+/* Highlighted/active filter button */
+.filter-btn.active {
+  background:   var(--blue);
+  color:        var(--white);
+  border-color: var(--blue);
+}
+ 
+.sort-control {
+  display:     flex;
+  align-items: center;
+  gap:         8px;
+  font-size:   13px;
+  color:       var(--muted);
+}
+ 
+.sort-control select {
+  padding:       6px 10px;
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  font-family:   inherit;
+  font-size:     13px;
+  background:    var(--white);
+  cursor:        pointer;
+  outline:       none;
+}
+ 
+ 
+/* === 7. ASSIGNMENT LIST & CARDS === */
+.list-section {
+  padding: 0 32px;
+}
+ 
+.list-section h2 {
+  font-size:     1.1rem;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+ 
+/* Empty state shown when there are no assignments */
+.empty-message {
+  text-align:    center;
+  padding:       40px 20px;
+  color:         var(--muted);
+  background:    var(--white);
+  border:        1px dashed var(--border);
+  border-radius: var(--radius);
+  font-size:     14px;
+}
+ 
+/* List of cards */
+#assignment-list {
+  display:        flex;
+  flex-direction: column;
+  gap:            10px;
+}
+ 
+/* Single assignment card */
+.card {
+  background:    var(--white);
+  border:        1px solid var(--border);
+  border-left:   5px solid var(--border); /* overridden by priority classes below */
+  border-radius: var(--radius);
+  box-shadow:    var(--shadow);
+  padding:       14px 16px;
+  display:       flex;
+  align-items:   flex-start;
+  gap:           12px;
+}
+ 
+/* Completed card looks faded */
+.card.completed {
+  background: var(--grey-light);
+  opacity:    0.7;
+}
+ 
+.card.completed .card-title {
+  text-decoration: line-through;
+  color:           var(--muted);
+}
+ 
+ 
+/* === 8. PRIORITY COLOR CODING ===
+   The left border color tells you the priority at a glance.
+   ---------------------------------------------------------- */
+.card.priority-High   { border-left-color: var(--red); }
+.card.priority-Medium { border-left-color: var(--amber); }
+.card.priority-Low    { border-left-color: var(--blue); }
+ 
+ 
+/* Card checkbox (click to toggle complete) */
+.card-check {
+  width:         20px;
+  height:        20px;
+  border:        2px solid var(--border);
+  border-radius: 4px;
+  cursor:        pointer;
+  flex-shrink:   0;
+  margin-top:    2px;
+  display:       flex;
+  align-items:   center;
+  justify-content: center;
+  font-size:     13px;
+  background:    var(--white);
+}
+ 
+.card-check:hover {
+  border-color: var(--blue);
+}
+ 
+/* Checked state — green fill */
+.card-check.checked {
+  background:   var(--green);
+  border-color: var(--green);
+  color:        var(--white);
+}
+ 
+/* Main text area of the card */
+.card-body {
+  flex: 1;
+  min-width: 0;
+}
+ 
+.card-title {
+  font-size:     15px;
+  font-weight:   bold;
+  margin-bottom: 2px;
+}
+ 
+.card-course {
+  font-size:   13px;
+  color:       var(--muted);
+  margin-bottom: 4px;
+}
+ 
+.card-desc {
+  font-size:     13px;
+  color:         var(--muted);
+  margin-bottom: 8px;
+}
+ 
+/* Row of small metadata tags */
+.card-meta {
+  display:     flex;
+  gap:         8px;
+  flex-wrap:   wrap;
+  align-items: center;
+  font-size:   12px;
+}
+ 
+/* Due date text */
+.due-label         { color: var(--muted); }
+.due-label.overdue { color: var(--red);   font-weight: bold; }
+.due-label.soon    { color: var(--amber); font-weight: bold; }
+ 
+ 
+/* === 9. STATUS & PRIORITY BADGES === */
+.badge {
+  padding:        2px 8px;
+  border-radius:  99px;
+  font-size:      11px;
+  font-weight:    bold;
+  text-transform: uppercase;
+}
+ 
+.badge.High       { background: var(--red-light);   color: var(--red); }
+.badge.Medium     { background: var(--amber-light);  color: var(--amber); }
+.badge.Low        { background: var(--blue-light);   color: var(--blue); }
+.badge.Completed  { background: var(--green-light);  color: var(--green); }
+.badge.InProgress { background: var(--blue-light);   color: var(--blue); }
+ 
+ 
+/* Action buttons on each card (Edit, Delete) */
+.card-actions {
+  display:    flex;
+  gap:        6px;
+  flex-shrink: 0;
+}
+ 
+ 
+/* === 10. EDIT MODAL === */
+/* Dark semi-transparent backdrop */
+.modal-overlay {
+  position:        fixed;
+  inset:           0;
+  background:      rgba(0, 0, 0, 0.45);
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  z-index:         100;
+  padding:         20px;
+}
+ 
+/* White dialog box */
+.modal-box {
+  background:    var(--white);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  padding:       28px;
+  width:         100%;
+  max-width:     480px;
+  max-height:    90vh;
+  overflow-y:    auto;
+}
+ 
+.modal-box h2 {
+  font-size:     1.1rem;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+ 
+.modal-buttons {
+display:         flex;
+justify-content: flex-end;
+gap:             8px;
+margin-top:      20px;
+}
+ 
+ 
+/* === 11. BUTTONS === */
+ 
+/* Blue filled button — main action */
+.btn-primary {
+  padding:       9px 20px;
+  background:    var(--blue);
+  color:         var(--white);
+  border:        none;
+  border-radius: var(--radius);
+  font-family:   inherit;
+  font-size:     14px;
+  font-weight:   bold;
+  cursor:        pointer;
+}
+ 
+.btn-primary:hover {
+  background: var(--blue-dark);
+}
+ 
+/* White outlined button — secondary action */
+.btn-secondary {
+  padding:       9px 20px;
+  background:    var(--white);
+  color:         var(--text);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  font-family:   inherit;
+  font-size:     14px;
+  cursor:        pointer;
+}
+ 
+.btn-secondary:hover {
+  background: var(--bg);
+}
+ 
+/* Small buttons used on cards (Edit, Delete) */
+.btn-small {
+  padding:       4px 10px;
+  background:    var(--white);
+  color:         var(--muted);
+  border:        1px solid var(--border);
+  border-radius: var(--radius);
+  font-family:   inherit;
+  font-size:     12px;
+  cursor:        pointer;
+}
+ 
+.btn-small:hover {
+  color:      var(--text);
+  background: var(--bg);
+}
+ 
+/* Delete button turns red on hover */
+.btn-delete:hover {
+  color:        var(--red);
+  border-color: var(--red);
+}
